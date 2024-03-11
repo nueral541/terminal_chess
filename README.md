@@ -1,0 +1,1 @@
+basicly this is just a simple terminal chess game made with python and the chess library. it handles basic chess features and uses algebric notation. I plan to add an ai later and possible a GUI using pygame. Enjoy!
