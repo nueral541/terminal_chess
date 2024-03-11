@@ -1,21 +1,22 @@
 import chess
 
+#import some variables from 
 from variables import *
 
-def check_board():
-    if board.is_checkmate():
+def check_board(): #this function checks the board to see if there are any draws or checkmates
+    if board.is_checkmate(): #check for a checkmate
         if board.turn == chess.BLACK:
             print(name1 + " wins by checkmate")
         else:
             print(name2 + " wins by checkmate")
         return True
-    elif board.is_stalemate():
+    elif board.is_stalemate(): #check for a stalemate
         print("The game is a stalemate")
         return True
-    elif board.is_insufficient_material():
+    elif board.is_insufficient_material():#check for draws
         print("The game is a draw due to insufficient material")
         return True
-    elif board.can_claim_draw():
+    elif board.can_claim_draw(): #check for draws
         print("The game is a draw by threefold repetition or the fifty-move rule")
         return True
 
