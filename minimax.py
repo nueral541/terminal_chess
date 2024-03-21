@@ -1,6 +1,21 @@
+import chess
+
 def evaluate_board(board):
-    values = {'pawn': 1, 'knight': 3, 'bishop': 3, 'rook': 5, 'queen': 9, 'king': 10000}
-    for 
+    values = {'pawn': 1, 'knight': 3, 'bishop': 3, 'rook': 5, 'queen': 9, 'king': 100000}
+    white_value = 0
+    black_value = 0
+
+    piece_map = board.piece_map()
+    for square, piece in piece_map.items():
+        piece_type = piece.symbol().lower()
+        piece_value = values.get(piece_type, 0)  # Get the value of the piece from the values dictionary
+        if piece.color == chess.WHITE:
+            white_value += piece_value
+        else:
+            black_value += piece_value
+
+    return white_value - black_value  # Return the material advantage for white
+
 
 def minimax(board, depth, alpha, beta, maximizing_player):
     if depth == 0 or board.is_game_over():
@@ -49,4 +64,3 @@ def best_move(board, depth, maximizing_player):
             best_move = move
 
     return best_move
-

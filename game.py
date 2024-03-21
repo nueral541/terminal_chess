@@ -1,31 +1,45 @@
+# Importing chess library
 import chess
 
-#import some variables from 
+# Importing variables from a separate file named "variables.py"
 from variables import *
+from minimax import *
 
-def check_board(): #this function checks the board to see if there are any draws or checkmates
-    if board.is_checkmate(): #check for a checkmate
+depth = 6
+
+# Function to check the board for draw or checkmate
+def check_board():
+    if board.is_checkmate():
         if board.turn == chess.BLACK:
             print(name1 + " wins by checkmate")
         else:
             print(name2 + " wins by checkmate")
         return True
-    elif board.is_stalemate(): #check for a stalemate
+    elif board.is_stalemate():
         print("The game is a stalemate")
         return True
-    elif board.is_insufficient_material():#check for draws
+    elif board.is_insufficient_material():
         print("The game is a draw due to insufficient material")
         return True
-    elif board.can_claim_draw(): #check for draws
+    elif board.can_claim_draw():
         print("The game is a draw by threefold repetition or the fifty-move rule")
         return True
 
+# Function to prompt for player names
 def ask_for_name():
     name1 = input("What is player one's name?  ")
     name2 = input("What is player two's name?  ")
     print(name1 + ' is uppercase letters and ' + name2 + ' is lowercase letters.')
     print("Starting game...")
     return name1, name2
+
+# Function for the minimax player's turn
+def minimax_player_turn(player, opponent, board, maximizing_player):
+    global move_made
+    # Implement the minimax algorithm here to find the best move for the minimax player
+    best_move_found = best_move(board, depth, maximizing_player)
+    board.push(best_move_found)
+    print(player + "'s move:", best_move_found)
 
 def player_turn(player, opponent, board):
     global move_made
@@ -66,11 +80,13 @@ board = chess.Board()
 move_made = False
 
 while not board.is_game_over():
-    player_turn(name1, name2, board)
+    minimax_player_turn(name1, name2, board, True)  # Minimax player's turn
     if board.is_game_over():
         break
     move_made = False  # Reset for the next player's turn
-    player_turn(name2, name1, board)
+    player_turn(name2, name1, board)  # Opponent's turn
+    if board.is_game_over():
+        break
     move_made = False  # Reset for the next player's turn
 
 # Check the game result
