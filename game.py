@@ -3,7 +3,6 @@ import chess
 
 # Importing variables from a separate file named "variables.py"
 from variables import *
-from minimax import *
 
 depth = 6
 
